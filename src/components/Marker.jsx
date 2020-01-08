@@ -1,0 +1,20 @@
+import React from "react";
+import { View, Text } from "react-native";
+
+const Marker = props => {
+  return (
+    <View>
+      <Text>yo man</Text>
+    </View>
+  );
+};
+
+// const Marker = props => {
+//   let title = props.item[0].title;
+//   let address = props.item[0].address;
+//   let lat = props.item[0].geometry.lat;
+//   let lng = props.item[0].geometry.lng;
+//   return <View>{`${title}, ${address}, ${lat}, ${lng}`}</View>;
+// };
+
+export default Marker;
