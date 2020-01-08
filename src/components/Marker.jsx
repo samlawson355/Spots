@@ -2,11 +2,10 @@ import React from "react";
 import { View, Text } from "react-native";
 
 const Marker = props => {
-  return (
-    <View>
-      <Text>yo man</Text>
-    </View>
-  );
+  // props.pingServer(props.x);
+  // console.log(props.pingServer(props.x));
+  props.pingServer(props.x);
+  return <Text>{props.x}</Text>;
 };
 
 // const Marker = props => {
