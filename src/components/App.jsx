@@ -1,6 +1,7 @@
 import React from "react";
-import Axios from "axios";
+// import Axios from "axios";
 import Marker from "./Marker.jsx";
+import Fields from "./Fields.jsx";
 import {
   StyleSheet,
   Text,
@@ -9,6 +10,7 @@ import {
   Button,
   TouchableHighlight
 } from "react-native";
+import MapView from "react-native-maps";
 
 class App2 extends React.Component {
   constructor(props) {
@@ -25,7 +27,7 @@ class App2 extends React.Component {
 
   saveEntry(e) {
     // window.localStorage.setItem(e, e);
-    document.getElementById("entryForm").value = "";
+
     this.loadAll();
   }
 
@@ -36,8 +38,8 @@ class App2 extends React.Component {
     this.setState(
       {
         savedPlaces: arr.sort()
-      },
-      this.pingServer()
+      }
+      // this.pingServer()
     );
   }
 
@@ -45,7 +47,7 @@ class App2 extends React.Component {
     // let arr = Object.keys(window.localStorage);
     let arr = ["Torchys", "Burger King"];
     let tempMarkers = [];
-    Axios.post("/test", {
+    Axios.post("https://10.54.166.222:1900/test", {
       placeList: arr,
       "Access-Control-Allow-Origin": "*"
     })
@@ -89,53 +91,53 @@ class App2 extends React.Component {
 
   render() {
     return (
-      <View>
-        <TextInput
-          id="entryForm"
-          style={styles.input1}
-          onKeyPress={e => {
-            if (e.charCode === 13) {
-              this.saveEntry(document.getElementById("entryForm").value);
-            }
-          }}
-        ></TextInput>
-        <TouchableHighlight
-          title="Save"
-          style={styles.button}
-          onPress={() => alert("push!")}
-        >
-          <Text>Push</Text>
-        </TouchableHighlight>
-
-        {this.state.markers ? (
-          <View>
-            {this.state.markers.map((item, key) => (
-              <Marker item={item} key={key} />
-            ))}
+      <MapView
+        style={{ flex: 1 }}
+        initialRegion={{
+          latitude: 7.78825,
+          longitude: -122.4324,
+          latitudeDelta: 0.0922,
+          longitudeDelta: 0.0421
+        }}
+        showsUserLocation={true}
+      >
+        <View>
+          <View style={styles1.outerContainer}>
+            <Fields styles={styles1} />
           </View>
-        ) : null}
-      </View>
+          {this.state.markers ? (
+            <View>
+              {this.state.markers.map((item, key) => (
+                <Marker item={item} key={key} />
+              ))}
+            </View>
+          ) : null}
+        </View>
+      </MapView>
     );
   }
 }
 
-const styles = StyleSheet.create({
+const styles1 = StyleSheet.create({
+  outerContainer: {
+    marginLeft: 35,
+    marginRight: 2,
+    width: 400,
+    justifyContent: "center"
+  },
   input1: {
+    marginTop: 150,
     borderColor: "black",
     borderWidth: 1,
     borderRadius: 20,
-    width: 400,
-    height: 100,
+    width: 350,
+    height: 50,
     marginBottom: 20,
     backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center"
+    alignItems: "center"
   },
-  button: {
-    fontSize: 10,
-    borderColor: "red",
-    borderWidth: 1,
-    width: 100
+  saveButtonHolder: {
+    marginLeft: 120
   }
 });
 
