@@ -1,13 +1,19 @@
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
+import MapView from "react-native-maps";
 
 const Marker = props => {
   // props.pingServer(props.x);
   // console.log(props.pingServer(props.x));
-  console.log("yo");
+
   return (
     <View style={styles2.container}>
-      {/* <Text>{`${props.placeName}`}</Text> */}
+      <MapView.Marker
+        coordinate={{
+          latitude: props.geometry.latitude,
+          longitude: props.geometry.longitude
+        }}
+      />
     </View>
   );
 };

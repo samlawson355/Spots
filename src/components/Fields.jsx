@@ -7,20 +7,6 @@ import {
   TouchableHighlight
 } from "react-native";
 
-// const SaveButton = props => {
-//   return (
-//     <TouchableHighlight
-//       style={styles.button}
-//       onPress={() => {
-//         alert("push button pressed!");
-//         // !
-//       }}
-//     >
-//       <Text>Push</Text>
-//     </TouchableHighlight>
-//   );
-// };
-
 class Fields extends React.Component {
   constructor(props) {
     super(props);
@@ -43,7 +29,7 @@ class Fields extends React.Component {
             // ! save item to persistent storage
           }}
         >
-          <Text style={styles.text}>push</Text>
+          <Text style={styles.text}>Add to List</Text>
         </TouchableHighlight>
       </View>
     );

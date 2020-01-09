@@ -121,19 +121,13 @@ class App2 extends React.Component {
             ? this.state.testGets.map((item, key) => (
                 <Marker1
                   key={key}
-                  coordinate={{
+                  geometry={{
                     latitude: item.geometry.lat,
                     longitude: item.geometry.lng
                   }}
                 />
               ))
             : null}
-          <MapView.Marker
-            coordinate={{ latitude: 37.78821, longitude: -122.4324 }}
-          />
-          <MapView.Marker
-            coordinate={{ latitude: 37.78821, longitude: -122.43 }}
-          />
         </MapView>
         <View style={styles1.outerContainer}>
           <Fields />
