@@ -2,7 +2,6 @@ import React from "react";
 import Axios from "axios";
 import Marker1 from "./Marker.jsx";
 import Fields from "./Fields.jsx";
-import MyList from "./MyList.jsx";
 import key from "../../key.js";
 import MenuButton from "./MenuButton.jsx";
 import Menu from "./Menu.jsx";
@@ -259,6 +258,15 @@ class App2 extends React.Component {
 
   deleteEntry(e) {
     // ! delete from menu
+    let arr = this.state.markers;
+    let idx = arr.indexOf(e);
+    arr.splice(idx, 1);
+    this.setState(
+      {
+        markers: arr
+      },
+      this.pingServer()
+    );
   }
 
   openMenu() {
@@ -293,6 +301,7 @@ class App2 extends React.Component {
         <Menu
           markers={this.state.markers}
           closeMenu={this.closeMenu}
+          deleteEntry={this.deleteEntry}
           night={this.state.night}
         />
       </View>

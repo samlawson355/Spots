@@ -31,7 +31,7 @@ const Menu = props => (
             </Text>
           </View>
           <View style={styles.deleteButtonContainer}>
-            <TouchableHighlight onPress={() => alert("yooo")}>
+            <TouchableHighlight onPress={() => props.deleteEntry(item)}>
               <Text
                 style={
                   props.night
