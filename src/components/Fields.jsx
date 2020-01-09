@@ -17,7 +17,7 @@ class Fields extends React.Component {
   }
   render() {
     return (
-      <View style={{ alignItems: "center", height: 30 }}>
+      <View style={styles.container}>
         <TextInput
           onChangeText={text => this.setState({ input: text })}
           value={this.state.input}
@@ -26,9 +26,9 @@ class Fields extends React.Component {
         <TouchableHighlight
           style={styles.button1}
           onPress={() => {
-            // alert(this.state.input);
             // ! save item to persistent storage
             this.props.saveEntry(this.state.input);
+            this.setState({ input: null });
           }}
         >
           <Text style={styles.text}>Add to List</Text>
@@ -42,6 +42,10 @@ class Fields extends React.Component {
 }
 
 const styles = StyleSheet.create({
+  container: {
+    alignItems: "center",
+    height: 30
+  },
   button1: {
     borderColor: "black",
     borderWidth: 1,

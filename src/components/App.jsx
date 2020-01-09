@@ -4,6 +4,7 @@ import Marker1 from "./Marker.jsx";
 import Fields from "./Fields.jsx";
 import MyList from "./MyList.jsx";
 import key from "../../key.js";
+import MenuButton from "./MenuButton.jsx";
 import {
   StyleSheet,
   Text,
@@ -12,7 +13,168 @@ import {
   Button,
   TouchableHighlight
 } from "react-native";
-import MapView from "react-native-maps";
+import MapView, { PROVIDER_GOOGLE } from "react-native-maps";
+const custMapStyle = [
+  {
+    elementType: "geometry",
+    stylers: [
+      {
+        color: "#242f3e"
+      }
+    ]
+  },
+  {
+    elementType: "labels.text.fill",
+    stylers: [
+      {
+        color: "#746855"
+      }
+    ]
+  },
+  {
+    elementType: "labels.text.stroke",
+    stylers: [
+      {
+        color: "#242f3e"
+      }
+    ]
+  },
+  {
+    featureType: "administrative.locality",
+    elementType: "labels.text.fill",
+    stylers: [
+      {
+        color: "#d59563"
+      }
+    ]
+  },
+  {
+    featureType: "poi",
+    elementType: "labels.text.fill",
+    stylers: [
+      {
+        color: "#d59563"
+      }
+    ]
+  },
+  {
+    featureType: "poi.park",
+    elementType: "geometry",
+    stylers: [
+      {
+        color: "#263c3f"
+      }
+    ]
+  },
+  {
+    featureType: "poi.park",
+    elementType: "labels.text.fill",
+    stylers: [
+      {
+        color: "#6b9a76"
+      }
+    ]
+  },
+  {
+    featureType: "road",
+    elementType: "geometry",
+    stylers: [
+      {
+        color: "#38414e"
+      }
+    ]
+  },
+  {
+    featureType: "road",
+    elementType: "geometry.stroke",
+    stylers: [
+      {
+        color: "#212a37"
+      }
+    ]
+  },
+  {
+    featureType: "road",
+    elementType: "labels.text.fill",
+    stylers: [
+      {
+        color: "#9ca5b3"
+      }
+    ]
+  },
+  {
+    featureType: "road.highway",
+    elementType: "geometry",
+    stylers: [
+      {
+        color: "#746855"
+      }
+    ]
+  },
+  {
+    featureType: "road.highway",
+    elementType: "geometry.stroke",
+    stylers: [
+      {
+        color: "#1f2835"
+      }
+    ]
+  },
+  {
+    featureType: "road.highway",
+    elementType: "labels.text.fill",
+    stylers: [
+      {
+        color: "#f3d19c"
+      }
+    ]
+  },
+  {
+    featureType: "transit",
+    elementType: "geometry",
+    stylers: [
+      {
+        color: "#2f3948"
+      }
+    ]
+  },
+  {
+    featureType: "transit.station",
+    elementType: "labels.text.fill",
+    stylers: [
+      {
+        color: "#d59563"
+      }
+    ]
+  },
+  {
+    featureType: "water",
+    elementType: "geometry",
+    stylers: [
+      {
+        color: "#17263c"
+      }
+    ]
+  },
+  {
+    featureType: "water",
+    elementType: "labels.text.fill",
+    stylers: [
+      {
+        color: "#515c6d"
+      }
+    ]
+  },
+  {
+    featureType: "water",
+    elementType: "labels.text.stroke",
+    stylers: [
+      {
+        color: "#17263c"
+      }
+    ]
+  }
+];
 
 class App2 extends React.Component {
   constructor(props) {
@@ -23,7 +185,8 @@ class App2 extends React.Component {
       testGets: null,
       initLat: null,
       initLng: null,
-      error: null
+      error: null,
+      menuOpen: false
     };
     this.saveEntry = this.saveEntry.bind(this);
     this.deleteEntry = this.deleteEntry.bind(this);
@@ -40,11 +203,9 @@ class App2 extends React.Component {
         error: null
       });
     }
-    // window.localStorage.setItem(e, e);
+
     let arr = this.state.markers;
-
     arr.push(e);
-
     this.setState(
       {
         markers: arr
@@ -113,6 +274,7 @@ class App2 extends React.Component {
     return (
       <View style={styles1.container}>
         <MapView
+          provider={PROVIDER_GOOGLE}
           style={styles1.map}
           initialRegion={{
             latitude: 30.2672,
@@ -121,6 +283,11 @@ class App2 extends React.Component {
             longitudeDelta: 0.0421
           }}
           showsUserLocation={true}
+          customMapStyle={(() => {
+            let today = new Date();
+            let hour = today.getHours();
+            return hour > 17 || hour < 6 ? custMapStyle : null;
+          })()}
         >
           {this.state.testGets
             ? this.state.testGets.map((item, key) => (
@@ -134,6 +301,10 @@ class App2 extends React.Component {
               ))
             : null}
         </MapView>
+        <View style={styles1.test}>
+          {this.state.menuOpen ? <Menu /> : <MenuButton />}
+        </View>
+        {/* <Text>does this show</Text> */}
         <View style={styles1.outerContainer}>
           <Fields saveEntry={this.saveEntry} error={this.state.error} />
         </View>
@@ -143,6 +314,11 @@ class App2 extends React.Component {
 }
 
 const styles1 = StyleSheet.create({
+  test: {
+    position: "absolute",
+    top: 500,
+    left: 10
+  },
   outerContainer: {
     position: "absolute",
     top: 0
