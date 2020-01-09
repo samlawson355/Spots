@@ -21,16 +21,26 @@ const Menu = props => (
         </Text>
       </TouchableHighlight>
     </View>
-
+    <View>
+      <Text style={props.night ? styles.myPlacesNight : styles.myPlacesDay}>
+        My places
+      </Text>
+    </View>
     <View style={styles.listView}>
       {props.markers.map((item, key) => (
-        <View key={key}>
+        <View key={key} style={styles.singleItem}>
           <View>
             <Text style={props.night ? styles.textNight : styles.textDay}>
               {item}
             </Text>
           </View>
-          <View style={styles.deleteButtonContainer}>
+          <View
+            style={
+              props.night
+                ? styles.deleteButtonContainerNight
+                : styles.deleteButtonContainerDay
+            }
+          >
             <TouchableHighlight onPress={() => props.deleteEntry(item)}>
               <Text
                 style={
@@ -52,6 +62,24 @@ const Menu = props => (
 export default Menu;
 
 const styles = StyleSheet.create({
+  myPlacesNight: {
+    color: "white",
+    top: 100,
+    left: 10,
+    fontSize: 35
+  },
+  myPlacesDay: {
+    color: "black",
+    top: 100,
+    left: 10,
+    fontSize: 35
+  },
+  singleItem: {
+    marginTop: 30,
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "space-between"
+  },
   containerDay: {
     backgroundColor: "#fff",
     top: 0,
@@ -80,36 +108,62 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     borderColor: "black",
     borderRadius: 3,
-    borderWidth: 2,
+    borderWidth: 1,
     alignContent: "center",
     justifyContent: "center",
     alignSelf: "flex-start",
-    top: 30,
-    left: 165
+    top: 50,
+    left: 16
   },
   backButtonNight: {
     backgroundColor: "#000",
     borderColor: "white",
     borderRadius: 3,
-    borderWidth: 2,
+    borderWidth: 1,
     alignContent: "center",
     justifyContent: "center",
     alignSelf: "flex-start",
-    top: 30,
-    left: 165
+    top: 50,
+    left: 16
   },
   buttonTextDay: {
+    fontWeight: "300",
     color: "black",
     fontSize: 30
   },
   buttonTextNight: {
+    fontWeight: "300",
     color: "white",
     fontSize: 30
   },
-  deleteButtonNight: {
-    color: "white"
+  deleteButtonContainerDay: {
+    borderColor: "black",
+    borderWidth: 1,
+    borderRadius: 1,
+    width: 80,
+    marginRight: 4
   },
-  deleteButtonContainer: {},
+  deleteButtonContainerNight: {
+    borderColor: "white",
+    borderWidth: 1,
+    borderRadius: 1,
+    width: 80,
+    marginRight: 4
+  },
+  deleteButtonNight: {
+    marginTop: 2,
+    marginRight: 5,
+    color: "red",
+    fontSize: 20,
+    alignSelf: "center"
+  },
+  deleteButtonDay: {
+    marginTop: 2,
+    marginRight: 5,
+    color: "red",
+    fontSize: 20,
+    alignSelf: "center"
+  },
   listView: {
     marginLeft: 10,
     marginTop: 100
