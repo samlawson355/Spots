@@ -187,7 +187,8 @@ class App2 extends React.Component {
       initLat: null,
       initLng: null,
       error: null,
-      menuOpen: false
+      menuOpen: false,
+      night: false
     };
     this.saveEntry = this.saveEntry.bind(this);
     this.deleteEntry = this.deleteEntry.bind(this);
@@ -258,8 +259,7 @@ class App2 extends React.Component {
   }
 
   deleteEntry(e) {
-    // window.localStorage.removeItem(e);
-    // this.loadAll();
+    // ! delete from menu
   }
 
   openMenu() {
@@ -276,6 +276,10 @@ class App2 extends React.Component {
 
   componentDidMount() {
     this.pingServer();
+    let hour = new Date().getHours();
+    this.setState({ night: hour > 17 || hour < 6 ? true : false });
+    // this.setState({ night: true }); //<-- testing only
+
     return navigator.geolocation.getCurrentPosition(results =>
       this.setState({
         initLat: results.coords.latitude,
@@ -301,11 +305,7 @@ class App2 extends React.Component {
             longitudeDelta: 0.0421
           }}
           showsUserLocation={true}
-          customMapStyle={(() => {
-            let today = new Date();
-            let hour = today.getHours();
-            return hour > 17 || hour < 6 ? custMapStyle : null;
-          })()}
+          customMapStyle={this.state.night ? custMapStyle : null}
         >
           {this.state.locations
             ? this.state.locations.map((item, key) => (
@@ -320,11 +320,15 @@ class App2 extends React.Component {
             : null}
         </MapView>
         <View style={styles1.test}>
-          <MenuButton openMenu={this.openMenu} />
+          <MenuButton openMenu={this.openMenu} night={this.state.night} />
         </View>
         {/* <Text>does this show</Text> */}
         <View style={styles1.outerContainer}>
-          <Fields saveEntry={this.saveEntry} error={this.state.error} />
+          <Fields
+            saveEntry={this.saveEntry}
+            error={this.state.error}
+            night={this.state.night}
+          />
         </View>
       </View>
     );

@@ -24,14 +24,16 @@ class Fields extends React.Component {
           style={styles.input1}
         ></TextInput>
         <TouchableHighlight
-          style={styles.button1}
+          style={this.props.night ? styles.button1Night : styles.button1Day}
           onPress={() => {
             this.props.saveEntry(this.state.input);
             this.setState({ input: null });
             // ! save item to persistent storage
           }}
         >
-          <Text style={styles.text}>Add to List</Text>
+          <Text style={this.props.night ? styles.textNight : styles.textDay}>
+            Add to List
+          </Text>
         </TouchableHighlight>
         <View style={styles.errorBox}>
           <InputError error={this.props.error} />
@@ -46,15 +48,27 @@ const styles = StyleSheet.create({
     alignItems: "center",
     height: 30
   },
-  button1: {
+  button1Day: {
     borderColor: "black",
     borderWidth: 1,
+    borderRadius: 3,
     width: 100,
     alignItems: "center",
     justifyContent: "center",
     paddingTop: 5,
     paddingBottom: 5,
     backgroundColor: "#fff"
+  },
+  button1Night: {
+    borderColor: "white",
+    borderWidth: 1,
+    borderRadius: 3,
+    width: 100,
+    alignItems: "center",
+    justifyContent: "center",
+    paddingTop: 5,
+    paddingBottom: 5,
+    backgroundColor: "#000"
   },
   input1: {
     marginTop: 75,
@@ -68,8 +82,11 @@ const styles = StyleSheet.create({
     alignItems: "center",
     textAlign: "center"
   },
-  text: {
+  textDay: {
     color: "black"
+  },
+  textNight: {
+    color: "white"
   },
   errorBox: {
     marginTop: 10,

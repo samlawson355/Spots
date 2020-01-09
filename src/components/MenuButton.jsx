@@ -3,13 +3,15 @@ import { TouchableHighlight, Text, StyleSheet } from "react-native";
 
 const MenuButton = props => (
   <TouchableHighlight
-    style={styles.buttonContainer}
+    style={
+      props.night ? styles.buttonContainerNight : styles.buttonContainerDay
+    }
     onPress={() => {
       props.openMenu();
     }}
   >
-    <Text>
-      <Text style={styles.menuButton}>☰</Text>
+    <Text style={props.night ? styles.menuButtonNight : styles.menuButtonDay}>
+      ☰
     </Text>
   </TouchableHighlight>
 );
@@ -17,7 +19,7 @@ const MenuButton = props => (
 export default MenuButton;
 
 const styles = StyleSheet.create({
-  buttonContainer: {
+  buttonContainerDay: {
     backgroundColor: "#fff",
     alignItems: "center",
     justifyContent: "center",
@@ -26,9 +28,24 @@ const styles = StyleSheet.create({
     borderRadius: 4,
     height: 38
   },
-  menuButton: {
+  buttonContainerNight: {
+    backgroundColor: "#000",
+    alignItems: "center",
+    justifyContent: "center",
+    borderColor: "white",
+    borderWidth: 2,
+    borderRadius: 4,
+    height: 38
+  },
+  menuButtonDay: {
     fontSize: 40,
     fontWeight: "200",
     textAlign: "center"
+  },
+  menuButtonNight: {
+    fontSize: 40,
+    fontWeight: "200",
+    textAlign: "center",
+    color: "white"
   }
 });
