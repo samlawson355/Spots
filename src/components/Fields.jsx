@@ -26,9 +26,9 @@ class Fields extends React.Component {
         <TouchableHighlight
           style={styles.button1}
           onPress={() => {
-            // ! save item to persistent storage
             this.props.saveEntry(this.state.input);
             this.setState({ input: null });
+            // ! save item to persistent storage
           }}
         >
           <Text style={styles.text}>Add to List</Text>
@@ -54,7 +54,6 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     paddingTop: 5,
     paddingBottom: 5,
-    opacity: 50,
     backgroundColor: "#fff"
   },
   input1: {

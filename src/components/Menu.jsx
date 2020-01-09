@@ -51,7 +51,6 @@ const styles = StyleSheet.create({
     alignContent: "center",
     justifyContent: "center",
     alignSelf: "flex-start",
-
     top: 30,
     left: 165
   },

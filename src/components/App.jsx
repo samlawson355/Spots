@@ -334,11 +334,12 @@ class App2 extends React.Component {
 const styles1 = StyleSheet.create({
   test: {
     position: "absolute",
-    top: 500,
-    left: 10
+    top: 40,
+    left: 15
   },
   outerContainer: {
     position: "absolute",
+    marginTop: 15,
     top: 0
   },
   container: {
