@@ -181,7 +181,6 @@ class App2 extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      savedPlaces: [],
       markers: ["Torchys", "Burger King"],
       locations: null,
       initLat: null,
@@ -290,8 +289,12 @@ class App2 extends React.Component {
 
   render() {
     return this.state.menuOpen ? (
-      <View>
-        <Menu markers={this.state.markers} closeMenu={this.closeMenu} />
+      <View style={styles1.menuStyle}>
+        <Menu
+          markers={this.state.markers}
+          closeMenu={this.closeMenu}
+          night={this.state.night}
+        />
       </View>
     ) : (
       <View style={styles1.container}>
@@ -358,6 +361,14 @@ const styles1 = StyleSheet.create({
     left: 0,
     right: 0,
     bottom: 0
+  },
+  menuStyle: {
+    flex: 1,
+    top: 0,
+    bottom: 0,
+    left: 0,
+    right: 0,
+    position: "absolute"
   }
 });
 
