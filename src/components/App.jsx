@@ -201,6 +201,7 @@ class App2 extends React.Component {
       this.setState({
         error: "Please enter the name of a place you like!"
       });
+      return;
     } else {
       this.setState({
         error: null
