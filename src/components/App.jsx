@@ -20,7 +20,9 @@ class App2 extends React.Component {
     this.state = {
       savedPlaces: [],
       markers: ["Torchys", "Burger King"],
-      testGets: null
+      testGets: null,
+      initLat: null,
+      initLng: null
     };
     this.saveEntry = this.saveEntry.bind(this);
     // this.loadAll = this.loadAll.bind(this);
@@ -94,6 +96,12 @@ class App2 extends React.Component {
   componentDidMount() {
     // this.loadAll();
     this.pingServer();
+    return navigator.geolocation.getCurrentPosition(results =>
+      this.setState({
+        initLat: results.coords.latitude,
+        initLng: results.coords.longitude
+      })
+    );
   }
 
   render() {
@@ -102,43 +110,34 @@ class App2 extends React.Component {
         <MapView
           style={styles1.map}
           initialRegion={{
-            latitude: 37.78825,
-            longitude: -122.4324,
+            latitude: 30.2672,
+            longitude: -97.7431,
             latitudeDelta: 0.0922,
             longitudeDelta: 0.0421
           }}
           showsUserLocation={true}
         >
-          <MapView.Marker
-            coordinate={{ latitude: 37.78825, longitude: -122.4324 }}
-            coordinate={{ latitude: 37.78825001, longitude: -122.4324 }}
-          />
-          <MapView.Marker
-            coordinate={{ latitude: 37.788249, longitude: -122.4324 }}
-          />
-          <View>
-            <View style={styles1.outerContainer}>
-              <Fields />
-            </View>
-            <MyList />
-            {this.state.testGets
-              ? (() =>
-                  this.state.testGets.map((item, key) => (
-                    <Marker1
-                      key={key}
-                      placeName={item.title}
-                      placeAddress={item.address}
-                      placeCoordsLat={item.geometry.lat}
-                      placeCoordsLng={item.geometry.lng}
-                    />
-                  )))()
-              : null}
-            {/* 
           {this.state.testGets
-            ? this.state.testGets.map(item => <Text>render</Text>)
-            : null} */}
-          </View>
+            ? this.state.testGets.map((item, key) => (
+                <Marker1
+                  key={key}
+                  coordinate={{
+                    latitude: item.geometry.lat,
+                    longitude: item.geometry.lng
+                  }}
+                />
+              ))
+            : null}
+          <MapView.Marker
+            coordinate={{ latitude: 37.78821, longitude: -122.4324 }}
+          />
+          <MapView.Marker
+            coordinate={{ latitude: 37.78821, longitude: -122.43 }}
+          />
         </MapView>
+        <View style={styles1.outerContainer}>
+          <Fields />
+        </View>
       </View>
     );
   }
@@ -146,25 +145,8 @@ class App2 extends React.Component {
 
 const styles1 = StyleSheet.create({
   outerContainer: {
-    marginLeft: 35,
-    marginRight: 2,
-    width: 400,
-    justifyContent: "center"
-  },
-  input1: {
-    marginTop: 150,
-    borderColor: "black",
-    borderWidth: 1,
-    borderRadius: 20,
-    width: 350,
-    height: 50,
-    marginBottom: 20,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    textAlign: "center"
-  },
-  saveButtonHolder: {
-    marginLeft: 120
+    position: "absolute",
+    top: 0
   },
   container: {
     flex: 1,

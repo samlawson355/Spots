@@ -30,7 +30,7 @@ class Fields extends React.Component {
   }
   render() {
     return (
-      <View style={{ alignItems: "center" }}>
+      <View style={{ alignItems: "center", height: 30 }}>
         <TextInput
           onChangeText={text => this.setState({ input: text })}
           value={this.state.input}
@@ -59,10 +59,11 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     paddingTop: 5,
     paddingBottom: 5,
-    opacity: 50
+    opacity: 50,
+    backgroundColor: "#fff"
   },
   input1: {
-    marginTop: 150,
+    marginTop: 75,
     borderColor: "black",
     borderWidth: 1,
     borderRadius: 20,
@@ -73,7 +74,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     textAlign: "center"
   },
-  text: { color: "red" }
+  text: { color: "black" }
 });
 
 export default Fields;
