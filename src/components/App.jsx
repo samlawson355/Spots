@@ -5,6 +5,7 @@ import Fields from "./Fields.jsx";
 import MyList from "./MyList.jsx";
 import key from "../../key.js";
 import MenuButton from "./MenuButton.jsx";
+import Menu from "./Menu.jsx";
 import {
   StyleSheet,
   Text,
@@ -182,7 +183,7 @@ class App2 extends React.Component {
     this.state = {
       savedPlaces: [],
       markers: ["Torchys", "Burger King"],
-      testGets: null,
+      locations: null,
       initLat: null,
       initLng: null,
       error: null,
@@ -191,8 +192,10 @@ class App2 extends React.Component {
     this.saveEntry = this.saveEntry.bind(this);
     this.deleteEntry = this.deleteEntry.bind(this);
     this.pingServer = this.pingServer.bind(this);
+    this.openMenu = this.openMenu.bind(this);
+    this.closeMenu = this.closeMenu.bind(this);
   }
-  t;
+
   saveEntry(e) {
     if (!e || typeof e !== "string") {
       this.setState({
@@ -215,7 +218,6 @@ class App2 extends React.Component {
   }
 
   pingServer() {
-    // let arr = Object.keys(window.localStorage);
     let arr1 = [];
     let arr2 = [];
     let hold = this.state.markers;
@@ -231,7 +233,6 @@ class App2 extends React.Component {
         .then(data =>
           data.map(item =>
             item.data.results.map(onePlace => {
-              // console.log(onePlace);
               arr2.push({
                 title: onePlace.name,
                 address: onePlace.formatted_address,
@@ -248,7 +249,7 @@ class App2 extends React.Component {
         .then(data => data[0])
         .then(data =>
           this.setState({
-            testGets: data
+            locations: data
           })
         )
         .catch(console.log);
@@ -258,6 +259,18 @@ class App2 extends React.Component {
   deleteEntry(e) {
     // window.localStorage.removeItem(e);
     // this.loadAll();
+  }
+
+  openMenu() {
+    this.setState({
+      menuOpen: true
+    });
+  }
+
+  closeMenu() {
+    this.setState({
+      menuOpen: false
+    });
   }
 
   componentDidMount() {
@@ -271,14 +284,18 @@ class App2 extends React.Component {
   }
 
   render() {
-    return (
+    return this.state.menuOpen ? (
+      <View>
+        <Menu markers={this.state.markers} closeMenu={this.closeMenu} />
+      </View>
+    ) : (
       <View style={styles1.container}>
         <MapView
           provider={PROVIDER_GOOGLE}
           style={styles1.map}
           initialRegion={{
-            latitude: 30.2672,
-            longitude: -97.7431,
+            latitude: this.state.initLat || 30.2672,
+            longitude: this.state.initLng || -97.7431,
             latitudeDelta: 0.0922,
             longitudeDelta: 0.0421
           }}
@@ -289,8 +306,8 @@ class App2 extends React.Component {
             return hour > 17 || hour < 6 ? custMapStyle : null;
           })()}
         >
-          {this.state.testGets
-            ? this.state.testGets.map((item, key) => (
+          {this.state.locations
+            ? this.state.locations.map((item, key) => (
                 <Marker1
                   key={key}
                   geometry={{
@@ -302,7 +319,7 @@ class App2 extends React.Component {
             : null}
         </MapView>
         <View style={styles1.test}>
-          {this.state.menuOpen ? <Menu /> : <MenuButton />}
+          <MenuButton openMenu={this.openMenu} />
         </View>
         {/* <Text>does this show</Text> */}
         <View style={styles1.outerContainer}>

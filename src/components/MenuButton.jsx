@@ -4,7 +4,7 @@ import { TouchableHighlight, Text } from "react-native";
 const MenuButton = props => (
   <TouchableHighlight
     onPress={() => {
-      alert("menu button pressed");
+      props.openMenu();
     }}
   >
     <Text>menu button here</Text>
