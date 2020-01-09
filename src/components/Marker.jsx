@@ -1,13 +1,13 @@
 import React from "react";
-import { View, Text } from "react-native";
+import { View, Text, StyleSheet } from "react-native";
 
 const Marker = props => {
   // props.pingServer(props.x);
   // console.log(props.pingServer(props.x));
-
+  console.log("yo");
   return (
-    <View>
-      <Text>{`${props.placeName}`}</Text>
+    <View style={styles2.container}>
+      {/* <Text>{`${props.placeName}`}</Text> */}
     </View>
   );
 };
@@ -19,5 +19,11 @@ const Marker = props => {
 //   let lng = props.item[0].geometry.lng;
 //   return <View>{`${title}, ${address}, ${lat}, ${lng}`}</View>;
 // };
+
+const styles2 = StyleSheet.create({
+  container: {
+    width: 20
+  }
+});
 
 export default Marker;

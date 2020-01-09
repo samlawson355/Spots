@@ -98,39 +98,48 @@ class App2 extends React.Component {
 
   render() {
     return (
-      <MapView
-        style={{ flex: 1 }}
-        initialRegion={{
-          latitude: 37.78825,
-          longitude: -122.4324,
-          latitudeDelta: 0.0922,
-          longitudeDelta: 0.0421
-        }}
-        showsUserLocation={true}
-      >
-        <View>
-          <View style={styles1.outerContainer}>
-            <Fields styles={styles1} />
-          </View>
-          <MyList />
-          {this.state.testGets
-            ? (() =>
-                this.state.testGets.map((item, key) => (
-                  <Marker1
-                    key={key}
-                    placeName={item.title}
-                    placeAddress={item.address}
-                    placeCoordsLat={item.geometry.lat}
-                    placeCoordsLng={item.geometry.lng}
-                  />
-                )))()
-            : null}
-          {/* 
+      <View style={styles1.container}>
+        <MapView
+          style={styles1.map}
+          initialRegion={{
+            latitude: 37.78825,
+            longitude: -122.4324,
+            latitudeDelta: 0.0922,
+            longitudeDelta: 0.0421
+          }}
+          showsUserLocation={true}
+        >
+          <MapView.Marker
+            coordinate={{ latitude: 37.78825, longitude: -122.4324 }}
+            coordinate={{ latitude: 37.78825001, longitude: -122.4324 }}
+          />
+          <MapView.Marker
+            coordinate={{ latitude: 37.788249, longitude: -122.4324 }}
+          />
+          <View>
+            <View style={styles1.outerContainer}>
+              <Fields />
+            </View>
+            <MyList />
+            {this.state.testGets
+              ? (() =>
+                  this.state.testGets.map((item, key) => (
+                    <Marker1
+                      key={key}
+                      placeName={item.title}
+                      placeAddress={item.address}
+                      placeCoordsLat={item.geometry.lat}
+                      placeCoordsLng={item.geometry.lng}
+                    />
+                  )))()
+              : null}
+            {/* 
           {this.state.testGets
             ? this.state.testGets.map(item => <Text>render</Text>)
             : null} */}
-        </View>
-      </MapView>
+          </View>
+        </MapView>
+      </View>
     );
   }
 }
@@ -156,6 +165,19 @@ const styles1 = StyleSheet.create({
   },
   saveButtonHolder: {
     marginLeft: 120
+  },
+  container: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "#F5FCFF"
+  },
+  map: {
+    position: "absolute",
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0
   }
 });
 
