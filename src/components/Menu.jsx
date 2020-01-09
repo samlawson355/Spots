@@ -141,14 +141,14 @@ const styles = StyleSheet.create({
   deleteButtonContainerDay: {
     borderColor: "black",
     borderWidth: 1,
-    borderRadius: 1,
+    borderRadius: 3,
     width: 80,
     marginRight: 4
   },
   deleteButtonContainerNight: {
     borderColor: "white",
     borderWidth: 1,
-    borderRadius: 1,
+    borderRadius: 3,
     width: 80,
     marginRight: 4
   },
@@ -157,14 +157,18 @@ const styles = StyleSheet.create({
     marginRight: 5,
     color: "red",
     fontSize: 20,
-    alignSelf: "center"
+    alignSelf: "center",
+    paddingLeft: 5,
+    marginBottom: 3
   },
   deleteButtonDay: {
     marginTop: 2,
     marginRight: 5,
     color: "red",
     fontSize: 20,
-    alignSelf: "center"
+    alignSelf: "center",
+    paddingLeft: 5,
+    marginBottom: 3
   },
   listView: {
     marginLeft: 10,

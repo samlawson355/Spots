@@ -285,7 +285,7 @@ class App2 extends React.Component {
     this.pingServer();
     let hour = new Date().getHours();
     this.setState({ night: hour > 17 || hour < 6 ? true : false });
-    this.setState({ night: true }); //<-- testing only
+    // this.setState({ night: true }); //<-- testing only
 
     return navigator.geolocation.getCurrentPosition(results =>
       this.setState({
