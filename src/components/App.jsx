@@ -180,7 +180,7 @@ class App2 extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      markers: ["Torchys", "Burger King"],
+      markers: [],
       locations: null,
       initLat: null,
       initLng: null,
@@ -261,12 +261,17 @@ class App2 extends React.Component {
     let arr = this.state.markers;
     let idx = arr.indexOf(e);
     arr.splice(idx, 1);
-    this.setState(
-      {
-        markers: arr
-      },
-      this.pingServer()
-    );
+    arr.length !== 0
+      ? this.setState(
+          {
+            markers: arr
+          },
+          this.pingServer()
+        )
+      : this.setState({
+          markers: [],
+          locations: null
+        });
   }
 
   openMenu() {
@@ -285,7 +290,7 @@ class App2 extends React.Component {
     this.pingServer();
     let hour = new Date().getHours();
     this.setState({ night: hour > 17 || hour < 6 ? true : false });
-    // this.setState({ night: true }); //<-- testing only
+    this.setState({ night: true }); //<-- testing only
 
     return navigator.geolocation.getCurrentPosition(results =>
       this.setState({
