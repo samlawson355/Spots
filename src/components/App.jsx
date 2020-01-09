@@ -284,8 +284,8 @@ class App2 extends React.Component {
   componentDidMount() {
     this.pingServer();
     let hour = new Date().getHours();
-    // this.setState({ night: hour > 17 || hour < 6 ? true : false });
-    // this.setState({ night: true }); //<-- testing only
+    this.setState({ night: hour > 17 || hour < 6 ? true : false });
+    this.setState({ night: true }); //<-- testing only
 
     return navigator.geolocation.getCurrentPosition(results =>
       this.setState({
@@ -297,14 +297,13 @@ class App2 extends React.Component {
 
   render() {
     return this.state.menuOpen ? (
-      <View style={styles1.menuStyle}>
-        <Menu
-          markers={this.state.markers}
-          closeMenu={this.closeMenu}
-          deleteEntry={this.deleteEntry}
-          night={this.state.night}
-        />
-      </View>
+      <Menu
+        style={{ flex: 1 }}
+        markers={this.state.markers}
+        closeMenu={this.closeMenu}
+        deleteEntry={this.deleteEntry}
+        night={this.state.night}
+      />
     ) : (
       <View style={styles1.container}>
         <MapView
@@ -376,8 +375,7 @@ const styles1 = StyleSheet.create({
     top: 0,
     bottom: 0,
     left: 0,
-    right: 0,
-    position: "absolute"
+    right: 0
   }
 });
 

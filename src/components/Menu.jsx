@@ -109,22 +109,24 @@ const styles = StyleSheet.create({
     borderColor: "black",
     borderRadius: 3,
     borderWidth: 1,
-    alignContent: "center",
-    justifyContent: "center",
     alignSelf: "flex-start",
     top: 50,
-    left: 16
+    left: 16,
+    paddingHorizontal: 3,
+    position: "absolute",
+    zIndex: 10
   },
   backButtonNight: {
     backgroundColor: "#000",
     borderColor: "white",
     borderRadius: 3,
     borderWidth: 1,
-    alignContent: "center",
-    justifyContent: "center",
     alignSelf: "flex-start",
     top: 50,
-    left: 16
+    left: 16,
+    paddingHorizontal: 3,
+    position: "absolute",
+    zIndex: 10
   },
   buttonTextDay: {
     fontWeight: "300",
