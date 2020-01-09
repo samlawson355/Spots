@@ -4,8 +4,12 @@ import { View, Text } from "react-native";
 const Marker = props => {
   // props.pingServer(props.x);
   // console.log(props.pingServer(props.x));
-  props.pingServer(props.x);
-  return <Text>{props.x}</Text>;
+
+  return (
+    <View>
+      <Text>{`${props.placeName}`}</Text>
+    </View>
+  );
 };
 
 // const Marker = props => {

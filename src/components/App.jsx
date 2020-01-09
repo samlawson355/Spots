@@ -2,6 +2,7 @@ import React from "react";
 import Axios from "axios";
 import Marker1 from "./Marker.jsx";
 import Fields from "./Fields.jsx";
+import MyList from "./MyList.jsx";
 import key from "../../key.js";
 import {
   StyleSheet,
@@ -22,61 +23,26 @@ class App2 extends React.Component {
       testGets: null
     };
     this.saveEntry = this.saveEntry.bind(this);
-    this.loadAll = this.loadAll.bind(this);
+    // this.loadAll = this.loadAll.bind(this);
     this.deleteEntry = this.deleteEntry.bind(this);
     this.pingServer = this.pingServer.bind(this);
   }
 
   saveEntry(e) {
     // window.localStorage.setItem(e, e);
-
-    this.loadAll();
+    // this.loadAll();
   }
 
-  loadAll() {
-    // ! get local storage in iphone, if possible
-    // let arr = Object.keys(window.localStorage);
-    let arr = ["Torchys", "Burger King"];
-    this.setState(
-      {
-        savedPlaces: arr.sort()
-      }
-      // this.pingServer()
-    );
-  }
-
-  // pingServer() {
+  // loadAll() {
+  //   // ! get local storage in iphone, if possible
   //   // let arr = Object.keys(window.localStorage);
   //   let arr = ["Torchys", "Burger King"];
-  //   let tempMarkers = [];
-  //   Axios.post("https://10.54.166.222:1900/test", {
-  //     placeList: arr,
-  //     "Access-Control-Allow-Origin": "*"
-  //   })
-  //     .then(data => data.data)
-  //     .then(data => {
-  //       data.map(nextData =>
-  //         nextData.map(place =>
-  //           tempMarkers.push([
-  //             {
-  //               title: place.name,
-  //               address: place.formatted_address,
-  //               geometry: {
-  //                 lat: place.geometry.location.lat,
-  //                 lng: place.geometry.location.lng
-  //               }
-  //             }
-  //           ])
-  //         )
-  //       );
-  //       return tempMarkers;
-  //     })
-  //     .then(tempMarkers =>
-  //       this.setState({
-  //         markers: tempMarkers
-  //       })
-  //     )
-  //     .catch(console.log);
+  //   this.setState(
+  //     {
+  //       savedPlaces: arr.sort()
+  //     }
+  //     // this.pingServer()
+  //   );
   // }
 
   pingServer() {
@@ -109,21 +75,24 @@ class App2 extends React.Component {
             })
           )
         )
+        .then(data => data[0])
+        .then(data => data[0])
         .then(data =>
           this.setState({
             testGets: data
           })
-        );
+        )
+        .catch(console.log);
     }
   }
 
   deleteEntry(e) {
     // window.localStorage.removeItem(e);
-    this.loadAll();
+    // this.loadAll();
   }
 
   componentDidMount() {
-    this.loadAll();
+    // this.loadAll();
     this.pingServer();
   }
 
@@ -143,6 +112,23 @@ class App2 extends React.Component {
           <View style={styles1.outerContainer}>
             <Fields styles={styles1} />
           </View>
+          <MyList />
+          {this.state.testGets
+            ? (() =>
+                this.state.testGets.map((item, key) => (
+                  <Marker1
+                    key={key}
+                    placeName={item.title}
+                    placeAddress={item.address}
+                    placeCoordsLat={item.geometry.lat}
+                    placeCoordsLng={item.geometry.lng}
+                  />
+                )))()
+            : null}
+          {/* 
+          {this.state.testGets
+            ? this.state.testGets.map(item => <Text>render</Text>)
+            : null} */}
         </View>
       </MapView>
     );
@@ -165,7 +151,8 @@ const styles1 = StyleSheet.create({
     height: 50,
     marginBottom: 20,
     backgroundColor: "#fff",
-    alignItems: "center"
+    alignItems: "center",
+    textAlign: "center"
   },
   saveButtonHolder: {
     marginLeft: 120

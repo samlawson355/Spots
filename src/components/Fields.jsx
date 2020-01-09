@@ -34,7 +34,7 @@ class Fields extends React.Component {
         <TextInput
           onChangeText={text => this.setState({ input: text })}
           value={this.state.input}
-          style={this.props.styles.input1}
+          style={styles.input1}
         ></TextInput>
         <TouchableHighlight
           style={styles.button1}
@@ -60,6 +60,18 @@ const styles = StyleSheet.create({
     paddingTop: 5,
     paddingBottom: 5,
     opacity: 50
+  },
+  input1: {
+    marginTop: 150,
+    borderColor: "black",
+    borderWidth: 1,
+    borderRadius: 20,
+    width: 350,
+    height: 50,
+    marginBottom: 20,
+    backgroundColor: "#fff",
+    alignItems: "center",
+    textAlign: "center"
   },
   text: { color: "red" }
 });
