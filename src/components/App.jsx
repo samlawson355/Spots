@@ -22,30 +22,36 @@ class App2 extends React.Component {
       markers: ["Torchys", "Burger King"],
       testGets: null,
       initLat: null,
-      initLng: null
+      initLng: null,
+      error: null
     };
     this.saveEntry = this.saveEntry.bind(this);
-    // this.loadAll = this.loadAll.bind(this);
     this.deleteEntry = this.deleteEntry.bind(this);
     this.pingServer = this.pingServer.bind(this);
   }
-
+  t;
   saveEntry(e) {
+    if (!e || typeof e !== "string") {
+      this.setState({
+        error: "Please enter the name of a place you like!"
+      });
+    } else {
+      this.setState({
+        error: null
+      });
+    }
     // window.localStorage.setItem(e, e);
-    // this.loadAll();
-  }
+    let arr = this.state.markers;
 
-  // loadAll() {
-  //   // ! get local storage in iphone, if possible
-  //   // let arr = Object.keys(window.localStorage);
-  //   let arr = ["Torchys", "Burger King"];
-  //   this.setState(
-  //     {
-  //       savedPlaces: arr.sort()
-  //     }
-  //     // this.pingServer()
-  //   );
-  // }
+    arr.push(e);
+
+    this.setState(
+      {
+        markers: arr
+      },
+      this.pingServer()
+    );
+  }
 
   pingServer() {
     // let arr = Object.keys(window.localStorage);
@@ -94,7 +100,6 @@ class App2 extends React.Component {
   }
 
   componentDidMount() {
-    // this.loadAll();
     this.pingServer();
     return navigator.geolocation.getCurrentPosition(results =>
       this.setState({
@@ -130,7 +135,7 @@ class App2 extends React.Component {
             : null}
         </MapView>
         <View style={styles1.outerContainer}>
-          <Fields />
+          <Fields saveEntry={this.saveEntry} error={this.state.error} />
         </View>
       </View>
     );

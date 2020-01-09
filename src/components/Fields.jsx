@@ -6,6 +6,7 @@ import {
   TextInput,
   TouchableHighlight
 } from "react-native";
+import InputError from "./InputError.jsx";
 
 class Fields extends React.Component {
   constructor(props) {
@@ -25,12 +26,16 @@ class Fields extends React.Component {
         <TouchableHighlight
           style={styles.button1}
           onPress={() => {
-            alert(this.state.input);
+            // alert(this.state.input);
             // ! save item to persistent storage
+            this.props.saveEntry(this.state.input);
           }}
         >
           <Text style={styles.text}>Add to List</Text>
         </TouchableHighlight>
+        <View style={styles.errorBox}>
+          <InputError error={this.props.error} />
+        </View>
       </View>
     );
   }
@@ -60,7 +65,13 @@ const styles = StyleSheet.create({
     alignItems: "center",
     textAlign: "center"
   },
-  text: { color: "black" }
+  text: {
+    color: "black"
+  },
+  errorBox: {
+    marginTop: 10,
+    height: 50
+  }
 });
 
 export default Fields;
