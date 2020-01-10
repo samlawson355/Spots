@@ -4,7 +4,8 @@ import {
   FlatList,
   View,
   StyleSheet,
-  TouchableHighlight
+  TouchableHighlight,
+  ScrollView
 } from "react-native";
 import NightModeToggle from "./NightModeToggle.jsx";
 
@@ -35,7 +36,10 @@ const Menu = props => (
         My places
       </Text>
     </View>
-    <View style={styles.listView}>
+    <View
+      style={props.night ? styles.dividingLineNight : styles.dividingLineDay}
+    />
+    <ScrollView style={styles.listView}>
       {props.markers.map((item, key) => (
         <View key={key} style={styles.singleItem}>
           <View>
@@ -64,7 +68,8 @@ const Menu = props => (
           </View>
         </View>
       ))}
-    </View>
+      <View style={{ height: 25 }}></View>
+    </ScrollView>
   </View>
 );
 
@@ -197,8 +202,19 @@ const styles = StyleSheet.create({
     paddingLeft: 5,
     marginBottom: 3
   },
+  dividingLineDay: {
+    borderBottomColor: "black",
+    borderBottomWidth: 1,
+    top: 150
+  },
+  dividingLineNight: {
+    borderBottomColor: "white",
+    borderBottomWidth: 1,
+    top: 150
+  },
   listView: {
     marginLeft: 10,
-    marginTop: 120
+    marginTop: 150,
+    flex: 1
   }
 });
