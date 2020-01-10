@@ -10,11 +10,11 @@
 
 // //test with dummyData
 // app.post("/test", (req, res) => {
-//   console.log("hey");
+
 //   let placeList = req.body.placeList;
 //   let arrToSend = [];
 //   for (let i = 0; i < placeList.length; i++) {
-//     console.log(placeList);
+
 //     arrToSend.push(
 //       Axios.get(
 //         `https://maps.googleapis.com/maps/api/place/textsearch/json?query=${placeList[i]}&key=${key}`

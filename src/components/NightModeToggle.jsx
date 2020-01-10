@@ -17,11 +17,7 @@ class NightModeToggle extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <Switch
-          value={this.state.switch}
-          onValueChange={e => this.toggle(e)}
-          // style={styles.switch}
-        ></Switch>
+        <Switch value={this.props.night} onValueChange={e => this.toggle(e)} />
       </View>
     );
   }

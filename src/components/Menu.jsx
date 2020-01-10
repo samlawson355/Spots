@@ -27,7 +27,7 @@ const Menu = props => (
       <Text style={props.night ? styles.nightTextNight : styles.nightTextDay}>
         Dark mode
       </Text>
-      <NightModeToggle toggleNight={props.toggleNight} />
+      <NightModeToggle toggleNight={props.toggleNight} night={props.night} />
     </View>
 
     <View>

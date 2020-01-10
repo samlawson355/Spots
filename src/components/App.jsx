@@ -324,11 +324,8 @@ class App2 extends React.Component {
   }
   componentDidMount() {
     this.asyncTestRetrieve();
-
     let hour = new Date().getHours();
     this.setState({ night: hour > 17 || hour < 6 ? true : false });
-    // this.setState({ night: false }); //<-- testing only
-
     return navigator.geolocation.getCurrentPosition(results =>
       this.setState({
         initLat: results.coords.latitude,
