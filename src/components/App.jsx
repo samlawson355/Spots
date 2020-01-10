@@ -201,37 +201,29 @@ class App2 extends React.Component {
   }
 
   asyncTestStore(e) {
-    return (async () => {
-      try {
-        await AsyncStorage.setItem(e, e);
-      } catch (error) {
-        console.log(error);
-      }
-    })();
+    AsyncStorage.setItem(e, e).catch(err => console.log(err));
   }
+
   asyncTestDelete(e) {
-    AsyncStorage.removeItem(e, err => (err ? console.log(err) : null));
+    AsyncStorage.removeItem(e).catch(err => console.log(err));
   }
   asyncTestRetrieve() {
-    AsyncStorage.getAllKeys((err, keys) => {
-      AsyncStorage.multiGet(keys, (error, stores) => {
-        stores.map((result, i, store) => {
-          let testSet = new Set(store);
-          let arr = [];
-          for (let place of testSet) {
-            arr.push(place[0]);
-          }
-
-          this.setState(
-            {
-              markers: arr
-            },
-            this.pingServer()
-          );
-          return true;
-        });
-      });
-    });
+    AsyncStorage.getAllKeys()
+      .then(data => AsyncStorage.multiGet(data))
+      .then(data => new Set(data))
+      .then(data => {
+        let arr = [];
+        for (let place of data) {
+          arr.push(place[0]);
+        }
+        return this.setState(
+          {
+            markers: arr
+          },
+          () => this.pingServer()
+        );
+      })
+      .catch(console.log);
   }
 
   saveEntry(e) {
@@ -252,7 +244,7 @@ class App2 extends React.Component {
       {
         markers: arr
       },
-      this.pingServer()
+      () => this.pingServer()
     );
   }
 
@@ -305,7 +297,7 @@ class App2 extends React.Component {
           {
             markers: arr
           },
-          this.pingServer()
+          () => this.pingServer()
         )
       : this.setState({
           markers: [],
@@ -324,6 +316,7 @@ class App2 extends React.Component {
       menuOpen: false
     });
   }
+
   toggleNight(e) {
     this.setState({
       night: e
@@ -331,7 +324,7 @@ class App2 extends React.Component {
   }
   componentDidMount() {
     this.asyncTestRetrieve();
-    this.pingServer();
+
     let hour = new Date().getHours();
     this.setState({ night: hour > 17 || hour < 6 ? true : false });
     // this.setState({ night: false }); //<-- testing only
