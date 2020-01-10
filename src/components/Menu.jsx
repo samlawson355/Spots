@@ -86,6 +86,7 @@ const styles = StyleSheet.create({
     fontSize: 35
   },
   nightSwitch: {
+    top: 5,
     left: 20
   },
   nightTextDay: {
