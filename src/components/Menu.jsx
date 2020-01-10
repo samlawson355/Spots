@@ -78,6 +78,13 @@ const styles = StyleSheet.create({
     left: 10,
     fontSize: 35
   },
+  myPlacesDay: {
+    position: "absolute",
+    color: "black",
+    top: 100,
+    left: 10,
+    fontSize: 35
+  },
   nightSwitch: {
     left: 20
   },
@@ -92,12 +99,6 @@ const styles = StyleSheet.create({
     left: 225,
     top: 55,
     fontSize: 17
-  },
-  myPlacesDay: {
-    color: "black",
-    top: 100,
-    left: 10,
-    fontSize: 35
   },
   singleItem: {
     marginTop: 30,
@@ -197,6 +198,6 @@ const styles = StyleSheet.create({
   },
   listView: {
     marginLeft: 10,
-    marginTop: 100
+    marginTop: 120
   }
 });
