@@ -224,7 +224,7 @@ class App2 extends React.Component {
 
           this.setState(
             {
-              markers: arr[0]
+              markers: arr
             },
             this.pingServer()
           );
@@ -245,7 +245,7 @@ class App2 extends React.Component {
         error: null
       });
     }
-    // this.asyncTestStore(e);
+    this.asyncTestStore(e);
     let arr = this.state.markers;
     arr.push(e);
     this.setState(
