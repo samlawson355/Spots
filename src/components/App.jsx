@@ -366,6 +366,8 @@ class App2 extends React.Component {
             ? this.state.locations.map((item, key) => (
                 <Marker1
                   key={key}
+                  itemName={item.title}
+                  itemAddress={item.address}
                   geometry={{
                     latitude: item.geometry.lat,
                     longitude: item.geometry.lng
