@@ -13,3 +13,7 @@ Android Emulator:
 `npm run android`
 
 Enjoy!
+
+# Sample
+
+![test](assets/Spots.gif)
