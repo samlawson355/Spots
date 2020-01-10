@@ -197,6 +197,7 @@ class App2 extends React.Component {
     this.asyncTestStore = this.asyncTestStore.bind(this);
     this.asyncTestRetrieve = this.asyncTestRetrieve.bind(this);
     this.asyncTestDelete = this.asyncTestDelete.bind(this);
+    this.toggleNight = this.toggleNight.bind(this);
   }
 
   asyncTestStore(e) {
@@ -323,7 +324,11 @@ class App2 extends React.Component {
       menuOpen: false
     });
   }
-
+  toggleNight(e) {
+    this.setState({
+      night: e
+    });
+  }
   componentDidMount() {
     this.asyncTestRetrieve();
     this.pingServer();
@@ -347,6 +352,7 @@ class App2 extends React.Component {
         closeMenu={this.closeMenu}
         deleteEntry={this.deleteEntry}
         night={this.state.night}
+        toggleNight={this.toggleNight}
       />
     ) : (
       <View style={styles1.container}>

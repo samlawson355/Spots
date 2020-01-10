@@ -6,6 +6,7 @@ import {
   StyleSheet,
   TouchableHighlight
 } from "react-native";
+import NightModeToggle from "./NightModeToggle.jsx";
 
 const Menu = props => (
   <View style={props.night ? styles.containerNight : styles.containerDay}>
@@ -21,6 +22,14 @@ const Menu = props => (
         </Text>
       </TouchableHighlight>
     </View>
+
+    <View style={styles.nightSwitch}>
+      <Text style={props.night ? styles.nightTextNight : styles.nightTextDay}>
+        Dark mode
+      </Text>
+      <NightModeToggle toggleNight={props.toggleNight} />
+    </View>
+
     <View>
       <Text style={props.night ? styles.myPlacesNight : styles.myPlacesDay}>
         My places
@@ -63,10 +72,26 @@ export default Menu;
 
 const styles = StyleSheet.create({
   myPlacesNight: {
+    position: "absolute",
     color: "white",
     top: 100,
     left: 10,
     fontSize: 35
+  },
+  nightSwitch: {
+    left: 20
+  },
+  nightTextDay: {
+    color: "black",
+    left: 225,
+    top: 55,
+    fontSize: 17
+  },
+  nightTextNight: {
+    color: "white",
+    left: 225,
+    top: 55,
+    fontSize: 17
   },
   myPlacesDay: {
     color: "black",
