@@ -6,6 +6,7 @@ import key from "../../key.js";
 import MenuButton from "./MenuButton.jsx";
 import Menu from "./Menu.jsx";
 import {
+  AsyncStorage,
   StyleSheet,
   Text,
   View,
@@ -193,6 +194,36 @@ class App2 extends React.Component {
     this.pingServer = this.pingServer.bind(this);
     this.openMenu = this.openMenu.bind(this);
     this.closeMenu = this.closeMenu.bind(this);
+    this.asyncTestStore = this.asyncTestStore.bind(this);
+    this.asyncTestRetrieve = this.asyncTestRetrieve.bind(this);
+  }
+
+  asyncTestStore(e) {
+    return (async () => {
+      try {
+        console.log("try storageTest");
+        await AsyncStorage.setItem(e, e);
+      } catch (error) {
+        console.log("err storageTest");
+        console.log(error);
+        // Error saving data
+      }
+    })();
+  }
+
+  asyncTestRetrieve(e) {
+    return (async () => {
+      try {
+        const value = await AsyncStorage.getItem(e);
+        if (value !== null) {
+          // Our data is fetched successfully
+          console.log(value);
+          console.log("try retrieveTest");
+        }
+      } catch {
+        console.log("err retrieveTest");
+      }
+    })();
   }
 
   saveEntry(e) {
@@ -288,9 +319,11 @@ class App2 extends React.Component {
 
   componentDidMount() {
     this.pingServer();
+    // this.asyncTestStore("test1");
+    this.asyncTestRetrieve("test1");
     let hour = new Date().getHours();
     this.setState({ night: hour > 17 || hour < 6 ? true : false });
-    this.setState({ night: true }); //<-- testing only
+    // this.setState({ night: false }); //<-- testing only
 
     return navigator.geolocation.getCurrentPosition(results =>
       this.setState({
