@@ -36,7 +36,7 @@ class Fields extends React.Component {
           </Text>
         </TouchableHighlight>
         <View style={styles.errorBox}>
-          <InputError error={this.props.error} />
+          <InputError error={this.props.error} night={this.props.night} />
         </View>
       </View>
     );

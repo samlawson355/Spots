@@ -196,26 +196,25 @@ class App2 extends React.Component {
     this.closeMenu = this.closeMenu.bind(this);
     this.asyncTestStore = this.asyncTestStore.bind(this);
     this.asyncTestRetrieve = this.asyncTestRetrieve.bind(this);
+    this.asyncTestDelete = this.asyncTestDelete.bind(this);
   }
 
   asyncTestStore(e) {
     return (async () => {
       try {
-        console.log("try storageTest");
         await AsyncStorage.setItem(e, e);
       } catch (error) {
-        console.log("err storageTest");
         console.log(error);
-        // Error saving data
       }
     })();
   }
-
+  asyncTestDelete(e) {
+    AsyncStorage.removeItem(e, err => (err ? console.log(err) : null));
+  }
   asyncTestRetrieve() {
     AsyncStorage.getAllKeys((err, keys) => {
       AsyncStorage.multiGet(keys, (error, stores) => {
         stores.map((result, i, store) => {
-          // console.log({ [store[i][0]]: store[i][1] });
           let testSet = new Set(store);
           let arr = [];
           for (let place of testSet) {
@@ -296,10 +295,10 @@ class App2 extends React.Component {
   }
 
   deleteEntry(e) {
-    // ! delete from menu
     let arr = this.state.markers;
     let idx = arr.indexOf(e);
     arr.splice(idx, 1);
+    this.asyncTestDelete(e);
     arr.length !== 0
       ? this.setState(
           {
