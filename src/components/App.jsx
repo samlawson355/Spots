@@ -211,19 +211,27 @@ class App2 extends React.Component {
     })();
   }
 
-  asyncTestRetrieve(e) {
-    return (async () => {
-      try {
-        const value = await AsyncStorage.getItem(e);
-        if (value !== null) {
-          // Our data is fetched successfully
-          console.log(value);
-          console.log("try retrieveTest");
-        }
-      } catch {
-        console.log("err retrieveTest");
-      }
-    })();
+  asyncTestRetrieve() {
+    AsyncStorage.getAllKeys((err, keys) => {
+      AsyncStorage.multiGet(keys, (error, stores) => {
+        stores.map((result, i, store) => {
+          // console.log({ [store[i][0]]: store[i][1] });
+          let testSet = new Set(store);
+          let arr = [];
+          for (let place of testSet) {
+            arr.push(place[0]);
+          }
+
+          this.setState(
+            {
+              markers: arr[0]
+            },
+            this.pingServer()
+          );
+          return true;
+        });
+      });
+    });
   }
 
   saveEntry(e) {
@@ -237,7 +245,7 @@ class App2 extends React.Component {
         error: null
       });
     }
-
+    // this.asyncTestStore(e);
     let arr = this.state.markers;
     arr.push(e);
     this.setState(
@@ -318,9 +326,8 @@ class App2 extends React.Component {
   }
 
   componentDidMount() {
+    this.asyncTestRetrieve();
     this.pingServer();
-    // this.asyncTestStore("test1");
-    this.asyncTestRetrieve("test1");
     let hour = new Date().getHours();
     this.setState({ night: hour > 17 || hour < 6 ? true : false });
     // this.setState({ night: false }); //<-- testing only
