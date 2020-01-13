@@ -246,7 +246,6 @@ class App2 extends React.Component {
   }
 
   pingServer() {
-    console.log("ping run");
     let arr1 = [];
     let arr2 = [];
     let hold = this.state.markers;
