@@ -1,10 +1,8 @@
 import React from "react";
 import Axios from "axios";
-import Marker1 from "./Marker.jsx";
-import Fields from "./Fields.jsx";
 import key from "../../key.js";
-import MenuButton from "./MenuButton.jsx";
 import Menu from "./Menu.jsx";
+import Map from "./Map.jsx";
 import {
   AsyncStorage,
   StyleSheet,
@@ -14,7 +12,6 @@ import {
   Button,
   TouchableHighlight
 } from "react-native";
-import MapView, { PROVIDER_GOOGLE } from "react-native-maps";
 const custMapStyle = [
   {
     elementType: "geometry",
@@ -345,45 +342,15 @@ class App2 extends React.Component {
         toggleNight={this.toggleNight}
       />
     ) : (
-      <View style={styles1.container}>
-        <MapView
-          provider={PROVIDER_GOOGLE}
-          style={styles1.map}
-          initialRegion={{
-            latitude: this.state.initLat || 30.2672,
-            longitude: this.state.initLng || -97.7431,
-            latitudeDelta: 0.0922,
-            longitudeDelta: 0.0421
-          }}
-          showsUserLocation={true}
-          customMapStyle={this.state.night ? custMapStyle : null}
-        >
-          {this.state.locations
-            ? this.state.locations.map((item, key) => (
-                <Marker1
-                  key={key}
-                  itemName={item.title}
-                  itemAddress={item.address}
-                  geometry={{
-                    latitude: item.geometry.lat,
-                    longitude: item.geometry.lng
-                  }}
-                />
-              ))
-            : null}
-        </MapView>
-        <View style={styles1.test}>
-          <MenuButton openMenu={this.openMenu} night={this.state.night} />
-        </View>
-        {/* <Text>does this show</Text> */}
-        <View style={styles1.outerContainer}>
-          <Fields
-            saveEntry={this.saveEntry}
-            error={this.state.error}
-            night={this.state.night}
-          />
-        </View>
-      </View>
+      <Map
+        initLat={this.state.initLat}
+        initLng={this.state.initLng}
+        night={this.state.night}
+        locations={this.state.locations}
+        openMenu={this.openMenu}
+        saveEntry={this.saveEntry}
+        error={this.state.error}
+      />
     );
   }
 }
