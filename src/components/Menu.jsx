@@ -91,8 +91,9 @@ const styles = StyleSheet.create({
     fontSize: 35
   },
   nightSwitch: {
+    display: "flex",
     top: 5,
-    left: 20
+    right: 0
   },
   nightTextDay: {
     color: "black",

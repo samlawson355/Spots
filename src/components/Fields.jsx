@@ -21,7 +21,9 @@ class Fields extends React.Component {
         <TextInput
           onChangeText={text => this.setState({ input: text })}
           value={this.state.input}
-          style={styles.input1}
+          style={this.props.night ? styles.input1Night : styles.input1Day}
+          placeholder="Enter location"
+          placeholderTextColor="gray"
         ></TextInput>
         <TouchableHighlight
           style={this.props.night ? styles.button1Night : styles.button1Day}
@@ -70,7 +72,8 @@ const styles = StyleSheet.create({
     paddingBottom: 5,
     backgroundColor: "#000"
   },
-  input1: {
+  input1Day: {
+    color: "black",
     marginTop: 75,
     borderColor: "black",
     borderWidth: 1,
@@ -79,6 +82,19 @@ const styles = StyleSheet.create({
     height: 50,
     marginBottom: 20,
     backgroundColor: "#fff",
+    alignItems: "center",
+    textAlign: "center"
+  },
+  input1Night: {
+    color: "white",
+    marginTop: 75,
+    borderColor: "white",
+    borderWidth: 1,
+    borderRadius: 20,
+    width: 350,
+    height: 50,
+    marginBottom: 20,
+    backgroundColor: "#000",
     alignItems: "center",
     textAlign: "center"
   },
