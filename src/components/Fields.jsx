@@ -24,6 +24,7 @@ class Fields extends React.Component {
           style={this.props.night ? styles.input1Night : styles.input1Day}
           placeholder="Enter location"
           placeholderTextColor="gray"
+          maxLength={30}
         ></TextInput>
         <TouchableHighlight
           style={this.props.night ? styles.button1Night : styles.button1Day}
