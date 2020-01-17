@@ -19,8 +19,6 @@ class App2 extends React.Component {
     this.state = {
       markers: [],
       locations: null,
-      initLat: null,
-      initLng: null,
       error: null,
       menuOpen: false,
       night: false
@@ -162,12 +160,6 @@ class App2 extends React.Component {
     this.asyncTestRetrieve();
     let hour = new Date().getHours();
     this.setState({ night: hour > 17 || hour < 6 ? true : false });
-    return navigator.geolocation.getCurrentPosition(results =>
-      this.setState({
-        initLat: results.coords.latitude,
-        initLng: results.coords.longitude
-      })
-    );
   }
 
   render() {
@@ -182,8 +174,8 @@ class App2 extends React.Component {
       />
     ) : (
       <Map
-        initLat={this.state.initLat}
-        initLng={this.state.initLng}
+        initLat={this.props.initLat}
+        initLng={this.props.initLng}
         night={this.state.night}
         locations={this.state.locations}
         openMenu={this.openMenu}
