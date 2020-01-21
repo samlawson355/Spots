@@ -14,6 +14,10 @@ Android Emulator:
 
 Enjoy!
 
+# About
+
+Built with React Native (and styling) and React. Utilizes Google's Maps/Places APIs.
+
 # Sample
 
 ![test](assets/Spots.gif)
