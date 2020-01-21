@@ -16,4 +16,4 @@ Enjoy!
 
 # Sample
 
-![test](assets/Spots.gif = 240x)
+![test](assets/Spots.gif =240)
