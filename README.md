@@ -16,4 +16,4 @@ Enjoy!
 
 # Sample
 
-![test](assets/Spots.gif =240)
+![test](assets/Spots.gif | width=240)
